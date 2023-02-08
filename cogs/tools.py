@@ -82,32 +82,32 @@ class Tools(commands.Cog):
         }
         responce = requests.get(url, params=params)
         json = responce.json()
-        for pack in json["modpacks"]:
-            url2 = "https://api.technicpack.net/modpack/" + pack["slug"]
-            params2 = {
-            'build': 'build',
-            }
-            packList = []
-            responce = requests.get(url2, params=params)
-            json2 = responce.json()
-            finalURL = json2["url"]
-            if finalURL == None:
-                finalURL = "SOLDER MODPACK"
-            packList.append("{}: {}".format(pack["slug"], finalURL))
-        query = "\n".join(sorted(packList))
-        if json["modpacks"] == []:
-            query = "No Results"
-            
+        packList = []
         embed = discord.Embed(
             title=f"Technic Slug Lookup",
             description='\uFEFF',
             colour=0x98FB98,
             timestamp=ctx.message.created_at)
         try:
+            for pack in json["modpacks"]:
+                url2 = "https://api.technicpack.net/modpack/" + pack["slug"]
+                params2 = {
+                'build': 'build',
+                }
+                responce = requests.get(url2, params=params)
+                json2 = responce.json()
+                finalURL = json2["url"]
+                if finalURL == None:
+                    finalURL = "SOLDER MODPACK"
+                embed.add_field(name=pack["name"], value=finalURL, inline=True)
+            if json["modpacks"] == []:
+                query = "No Results"
+        except:
+            pass
+        try:
             embed.set_thumbnail(url="https://i.ibb.co/qgXtt0Z/309359763-128793633250428-4428571622506032512-n.png")
         except:
             pass
-        embed.add_field(name="Packs:", value=query, inline=True)
         embed.set_footer(text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}")
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
         await ctx.send(content=None, embed=embed)
