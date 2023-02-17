@@ -1,0 +1,210 @@
+Ignoring exception in command adfly:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 178, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "/root/axolotl/cogs/tools.py", line 42, in adfly
+    decrypted_url = key[2:].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa8 in position 126: invalid start byte
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/bot.py", line 346, in invoke
+    await ctx.command.invoke(ctx)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 950, in invoke
+    await injected(*ctx.args, **ctx.kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 187, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa8 in position 126: invalid start byte
+                                          
+##########################################
+                ⣀⣀⡤⠤⠤⠤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+  ⠀⠀⢴⠋⠙⠳⣤⡀⣠⠖⠋⠁⠀⠀⠀⠀⠀⠀⠀⠉⠓⠤⡀⣠⡴⠟⠛⣷⠀⠀   
+  ⠀⠀⠈⠳⢤⣀⢈⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ara⠘⢏⣀⣠⡴⠋⠀⠀   
+  ⢀⣠⣤⣄⣄⣉⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣇⣡⣤⡴⣦⣀   
+  ⢹⣅⡀⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡏⠁⠀⢀⣠⠏   
+  ⠀⠈⠙⠉⢋⣉⣇⠀⠀⣾⣷⠄⠀⠀⠀⠀⠀⠀⠀⢴⣿⡆⠀⢀⣿⡙⠋⠋⠀⠀   
+  ⠀⠀⢤⠶⠋⠉⢈⣦⡀⠈⠉⠀⠀⠀⠉⠉⠉⠀⠀⠀⠉⠀⣠⣎⠈⠉⠛⢷⡀⠀   
+  ⠀⠀⠻⣤⣤⠶⠋⠀⠈⠑⠠⠄⣀⣀⣀⣀⣀⣀⡀⠤⠐⠉⠀⠈⠻⠶⠖⠶⠃⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠤⡀⠀⡠⠤⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⠉⠁⠀⠉⠉⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⢀⠤⡀⠀⡠⢄⢀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠢⣀⣀⣀⣈⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡌⡇⠀⣎⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢡⡇⣸⠜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠓⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+##########################################
+Running as: Axolotl#2168
+With Client ID: 1072677455829155861
+
+Built With:
+Python 3.8.10
+Py-Cord 2.2.2
+Ignoring exception in command adfly:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 178, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "/root/axolotl/cogs/tools.py", line 42, in adfly
+    decrypted_url = key[2:].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 150: invalid continuation byte
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/bot.py", line 346, in invoke
+    await ctx.command.invoke(ctx)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 950, in invoke
+    await injected(*ctx.args, **ctx.kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 187, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 150: invalid continuation byte
+Ignoring exception in command adfly:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 178, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "/root/axolotl/cogs/tools.py", line 42, in adfly
+    decrypted_url = key[2:].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb2 in position 2: invalid start byte
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/bot.py", line 346, in invoke
+    await ctx.command.invoke(ctx)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 950, in invoke
+    await injected(*ctx.args, **ctx.kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 187, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb2 in position 2: invalid start byte
+Ignoring exception in command adfly:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 178, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "/root/axolotl/cogs/tools.py", line 42, in adfly
+    decrypted_url = key[2:].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa8 in position 126: invalid start byte
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/bot.py", line 346, in invoke
+    await ctx.command.invoke(ctx)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 950, in invoke
+    await injected(*ctx.args, **ctx.kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 187, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa8 in position 126: invalid start byte
+Ignoring exception in command adfly:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 178, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "/root/axolotl/cogs/tools.py", line 42, in adfly
+    decrypted_url = key[2:].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa8 in position 126: invalid start byte
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/bot.py", line 346, in invoke
+    await ctx.command.invoke(ctx)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 950, in invoke
+    await injected(*ctx.args, **ctx.kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 187, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa8 in position 126: invalid start byte
+Ignoring exception in command adfly:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 178, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "/root/axolotl/cogs/tools.py", line 42, in adfly
+    decrypted_url = key[2:].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 150: invalid continuation byte
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/bot.py", line 346, in invoke
+    await ctx.command.invoke(ctx)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 950, in invoke
+    await injected(*ctx.args, **ctx.kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 187, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 150: invalid continuation byte
+Ignoring exception in command adfly:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 178, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "/root/axolotl/cogs/tools.py", line 42, in adfly
+    decrypted_url = key[2:].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 150: invalid continuation byte
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/bot.py", line 346, in invoke
+    await ctx.command.invoke(ctx)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 950, in invoke
+    await injected(*ctx.args, **ctx.kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 187, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 150: invalid continuation byte
+Ignoring exception in command adfly:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 178, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "/root/axolotl/cogs/tools.py", line 42, in adfly
+    decrypted_url = key[2:].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 150: invalid continuation byte
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/bot.py", line 346, in invoke
+    await ctx.command.invoke(ctx)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 950, in invoke
+    await injected(*ctx.args, **ctx.kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 187, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 150: invalid continuation byte
+Ignoring exception in command adfly:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 178, in wrapped
+    ret = await coro(*args, **kwargs)
+  File "/root/axolotl/cogs/tools.py", line 42, in adfly
+    decrypted_url = key[2:].decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 150: invalid continuation byte
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/bot.py", line 346, in invoke
+    await ctx.command.invoke(ctx)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 950, in invoke
+    await injected(*ctx.args, **ctx.kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/discord/ext/commands/core.py", line 187, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 150: invalid continuation byte
+                                          
+##########################################
+                ⣀⣀⡤⠤⠤⠤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+  ⠀⠀⢴⠋⠙⠳⣤⡀⣠⠖⠋⠁⠀⠀⠀⠀⠀⠀⠀⠉⠓⠤⡀⣠⡴⠟⠛⣷⠀⠀   
+  ⠀⠀⠈⠳⢤⣀⢈⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ara⠘⢏⣀⣠⡴⠋⠀⠀   
+  ⢀⣠⣤⣄⣄⣉⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣇⣡⣤⡴⣦⣀   
+  ⢹⣅⡀⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡏⠁⠀⢀⣠⠏   
+  ⠀⠈⠙⠉⢋⣉⣇⠀⠀⣾⣷⠄⠀⠀⠀⠀⠀⠀⠀⢴⣿⡆⠀⢀⣿⡙⠋⠋⠀⠀   
+  ⠀⠀⢤⠶⠋⠉⢈⣦⡀⠈⠉⠀⠀⠀⠉⠉⠉⠀⠀⠀⠉⠀⣠⣎⠈⠉⠛⢷⡀⠀   
+  ⠀⠀⠻⣤⣤⠶⠋⠀⠈⠑⠠⠄⣀⣀⣀⣀⣀⣀⡀⠤⠐⠉⠀⠈⠻⠶⠖⠶⠃⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠤⡀⠀⡠⠤⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠀⠉⠁⠀⠉⠉⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⢀⠤⡀⠀⡠⢄⢀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠢⣀⣀⣀⣈⡠⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡌⡇⠀⣎⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢡⡇⣸⠜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠓⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   
+##########################################
+Running as: Axolotl#2168
+With Client ID: 1072677455829155861
+
+Built With:
+Python 3.8.10
+Py-Cord 2.2.2
