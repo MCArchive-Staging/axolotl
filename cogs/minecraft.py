@@ -61,5 +61,23 @@ class Minecraft(commands.Cog):
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
         await ctx.send(content=None, embed=embed)
 
+    #Too new of Java Command
+    @commands.command(ailases="new_java")
+    async def njava(self, ctx):
+        embed = discord.Embed(
+            title=f"Please select your Java version in the MultiMC/Prism settings",
+            description='USE Java 8u20 (Launcher Java) to fix "Untampered Version" error',
+            colour=0x98FB98,
+            timestamp=ctx.message.created_at)
+        try:
+            embed.set_thumbnail(url="https://i.ibb.co/NtKN38j/java-coffee-cup-logo-v1.png")
+        except:
+            pass
+        embed.set_image(url="https://cdn.discordapp.com/attachments/531598137790562305/575378380573114378/unknown.png")
+        embed.set_footer(text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}")
+        embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
+        await ctx.send(content=None, embed=embed)
+
+
 def setup(bot):
     bot.add_cog(Minecraft(bot))
