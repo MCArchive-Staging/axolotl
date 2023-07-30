@@ -24,7 +24,7 @@ from discord.ext import commands
 intents = discord.Intents.all()
 
 #Define Client
-bot = commands.Bot(description="Background Axolotl", command_prefix=commands.when_mentioned_or("?"), intents=intents, activity=discord.Game(name='Miencraft'))
+bot = commands.Bot(description="Background Axolotl", command_prefix=commands.when_mentioned_or("?"), intents=intents, activity=discord.Game(name='Minecraft'))
 
 @bot.event
 async def on_ready():

@@ -107,44 +107,31 @@ class Tools(commands.Cog):
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
         await ctx.send(content=None, embed=embed)
         
-    # Technic Command
+    # ATLauncher Search Command
     @commands.command(pass_context=True)
-    async def technic(self, ctx, search):
-        url = "https://api.technicpack.net/search?q=" + search
-        params = {
-            "build": "build",
+    async def modsearch(self, ctx, jarfile):
+        url = "https://api.atlauncher.com/v1/file-lookup"
+        json = {
+            "filename": jarfile,
         }
-        responce = requests.get(url, params=params)
+        headers = {
+        'User-Agent': 'MCArchive: Axolotl Bot. https://discord.gg/WuexGpP',
+        }
+        responce = requests.post(url, json=json, headers=headers)
+        
         json = responce.json()
-        packList = []
+        modList = []
         embed = discord.Embed(
-            title=f"Technic Slug Lookup",
+            title=f"ATLauncher Mod Lookup",
             description="\uFEFF",
             colour=0x98FB98,
             timestamp=ctx.message.created_at,
         )
-        try:
-            for pack in json["modpacks"]:
-                url2 = "https://api.technicpack.net/modpack/" + pack["slug"]
-                params2 = {
-                    "build": "build",
-                }
-                responce = requests.get(url2, params=params)
-                json2 = responce.json()
-                finalURL = json2["url"]
-                if finalURL == None:
-                    finalURL = "SOLDER MODPACK"
-                embed.add_field(name=pack["name"], value=finalURL, inline=True)
-            if json["modpacks"] == []:
-                query = "No Results"
-        except:
-            pass
-        try:
-            embed.set_thumbnail(
-                url="https://i.ibb.co/qgXtt0Z/309359763-128793633250428-4428571622506032512-n.png"
-            )
-        except:
-            pass
+        for pack in json:
+            embed.add_field(name=json[0]['mod_name'], value=json[0]['friendly_url'], inline=True)
+        if json == []:
+            embed.add_field(name='Error', value="No Results", inline=True)
+        embed.set_thumbnail(url="https://i.ibb.co/GFJtgNy/atlauncher-208731.webp")
         embed.set_footer(
             text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
         )

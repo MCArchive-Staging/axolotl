@@ -2,5 +2,5 @@ dadjokes
 requests
 urllib3
 aiohttp
-py-cord==2.2.2
+py-cord
 python-box
