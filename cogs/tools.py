@@ -137,6 +137,37 @@ class Tools(commands.Cog):
         )
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
         await ctx.send(content=None, embed=embed)
+    
+    # ATLauncher Search Command
+    @commands.command(pass_context=True)
+    async def atlaunch_md5(self, ctx, jarfile):
+        url = "https://api.atlauncher.com/v1/file-lookup"
+        json = {
+            "md5": jarfile,
+        }
+        headers = {
+        'User-Agent': 'MCArchive: Axolotl Bot. https://discord.gg/WuexGpP',
+        }
+        responce = requests.post(url, json=json, headers=headers)
+        
+        json = responce.json()
+        modList = []
+        embed = discord.Embed(
+            title=f"ATLauncher Mod Lookup",
+            description="\uFEFF",
+            colour=0x98FB98,
+            timestamp=ctx.message.created_at,
+        )
+        for pack in json:
+            embed.add_field(name=json[0]['mod_name'], value=json[0]['friendly_url'], inline=True)
+        if json == []:
+            embed.add_field(name='Error', value="No Results", inline=True)
+        embed.set_thumbnail(url="https://i.ibb.co/GFJtgNy/atlauncher-208731.webp")
+        embed.set_footer(
+            text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
+        )
+        embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
+        await ctx.send(content=None, embed=embed)
 
 
 def setup(bot):
