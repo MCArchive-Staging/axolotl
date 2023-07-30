@@ -109,7 +109,7 @@ class Tools(commands.Cog):
         
     # ATLauncher Search Command
     @commands.command(pass_context=True)
-    async def modsearch(self, ctx, jarfile):
+    async def atlaunch(self, ctx, jarfile):
         url = "https://api.atlauncher.com/v1/file-lookup"
         json = {
             "filename": jarfile,
