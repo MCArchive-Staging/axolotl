@@ -106,10 +106,16 @@ class Tools(commands.Cog):
         )
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
         await ctx.send(content=None, embed=embed)
-        
+    
     # ATLauncher Search Command
-    @commands.command(pass_context=True)
-    async def atlaunch(self, ctx, jarfile):
+    @commands.group(pass_context=True)
+    async def atlaunch(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send('**Subcommands:** file, md5, sha1, sha512')
+
+    # ATLauncher Search Command
+    @atlaunch.command(pass_context=True)
+    async def file(self, ctx, jarfile):
         url = "https://api.atlauncher.com/v1/file-lookup"
         json = {
             "filename": jarfile,
@@ -139,8 +145,8 @@ class Tools(commands.Cog):
         await ctx.send(content=None, embed=embed)
     
     # ATLauncher Search Command
-    @commands.command(pass_context=True)
-    async def atlaunch_md5(self, ctx, jarfile):
+    @atlaunch.command(pass_context=True)
+    async def md5(self, ctx, jarfile):
         url = "https://api.atlauncher.com/v1/file-lookup"
         json = {
             "md5": jarfile,
@@ -170,8 +176,8 @@ class Tools(commands.Cog):
         await ctx.send(content=None, embed=embed)
     
     # ATLauncher Search Command
-    @commands.command(pass_context=True)
-    async def atlaunch_sha1(self, ctx, jarfile):
+    @atlaunch.command(pass_context=True)
+    async def sha1(self, ctx, jarfile):
         url = "https://api.atlauncher.com/v1/file-lookup"
         json = {
             "sha1": jarfile,
@@ -201,8 +207,8 @@ class Tools(commands.Cog):
         await ctx.send(content=None, embed=embed)
     
     # ATLauncher Search Command
-    @commands.command(pass_context=True)
-    async def atlaunch_sha512(self, ctx, jarfile):
+    @atlaunch.command(pass_context=True)
+    async def sha512(self, ctx, jarfile):
         url = "https://api.atlauncher.com/v1/file-lookup"
         json = {
             "sha512": jarfile,
@@ -222,6 +228,72 @@ class Tools(commands.Cog):
         )
         for pack in json:
             embed.add_field(name=json[0]['mod_name'], value=json[0]['friendly_url'], inline=True)
+        if json == []:
+            embed.add_field(name='Error', value="No Results", inline=True)
+        embed.set_thumbnail(url="https://i.ibb.co/GFJtgNy/atlauncher-208731.webp")
+        embed.set_footer(
+            text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
+        )
+        embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
+        await ctx.send(content=None, embed=embed)
+
+    # ATLauncher Search Command
+    @commands.group(pass_context=True)
+    async def modrinth(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send('**Subcommands:** sha1, sha512')
+    
+    # Modrinth Search Command
+    @modrinth.command(pass_context=True)
+    async def sha1(self, ctx, jarfile):
+        url = "https://api.modrinth.com/v2/version_file/" + jarfile
+        headers = {
+        'User-Agent': 'MCArchive: Axolotl Bot. https://discord.gg/WuexGpP',
+        }
+        params = {
+            "alogrithm": "sha1",
+        }
+        responce = requests.get(url, headers=headers, params=params)
+        
+        json = responce.json()
+        modList = []
+        embed = discord.Embed(
+            title=f"ATLauncher Mod Lookup",
+            description="\uFEFF",
+            colour=0x98FB98,
+            timestamp=ctx.message.created_at,
+        )
+        embed.add_field(name=json['files'][0]['filename'], value=json['files'][0]['url'], inline=True)
+        if json == []:
+            embed.add_field(name='Error', value="No Results", inline=True)
+        embed.set_thumbnail(url="https://i.ibb.co/GFJtgNy/atlauncher-208731.webp")
+        embed.set_footer(
+            text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
+        )
+        embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
+        await ctx.send(content=None, embed=embed)
+    
+    # Modrinth Search Command
+    @modrinth.command(pass_context=True)
+    async def sha512(self, ctx, jarfile):
+        url = "https://api.modrinth.com/v2/version_file/" + jarfile
+        headers = {
+        'User-Agent': 'MCArchive: Axolotl Bot. https://discord.gg/WuexGpP',
+        }
+        params = {
+            "alogrithm": "sha512",
+        }
+        responce = requests.get(url, headers=headers, params=params)
+        
+        json = responce.json()
+        modList = []
+        embed = discord.Embed(
+            title=f"ATLauncher Mod Lookup",
+            description="\uFEFF",
+            colour=0x98FB98,
+            timestamp=ctx.message.created_at,
+        )
+        embed.add_field(name=json['files'][0]['filename'], value=json['files'][0]['url'], inline=True)
         if json == []:
             embed.add_field(name='Error', value="No Results", inline=True)
         embed.set_thumbnail(url="https://i.ibb.co/GFJtgNy/atlauncher-208731.webp")
