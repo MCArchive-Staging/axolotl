@@ -26,7 +26,7 @@ class Tools(commands.Cog):
     async def adfly(self, ctx, search):
         
         try:
-            response = requests.head("https://adf.ly/urEVA", allow_redirects=True)
+            response = requests.head(search, allow_redirects=True)
             url = response.url
             print(url)
             base_url = f"http://45.88.188.104:6087/api/adlinks/bypass?url={url}"
