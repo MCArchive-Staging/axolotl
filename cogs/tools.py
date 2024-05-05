@@ -25,26 +25,14 @@ class Tools(commands.Cog):
     @commands.command(pass_context=True)
     async def adfly(self, ctx, search):
         
-        response = requests.head(search, allow_redirects=True)
-        url = response.url
-
-        print(url)
-        
-        parsed_url = urllib.parse.urlparse(url)
-        query_params = urllib.parse.parse_qs(parsed_url.query)
-
-        if "r" in query_params:
-            decrypted_url = query_params["r"][0]
-            decrypted_url2 = decrypted_url[:-1]
-            print(decrypted_url2)
-            # Add padding if needed
-            while len(decrypted_url2) % 4 != 0:
-                decrypted_url2 += "="
-            decoded_string = base64.b64decode(decrypted_url2)
-            decoded_string = decoded_string.decode(encoding='utf-8')
-
-
-        else:
+        try:
+            response = requests.head("https://adf.ly/urEVA", allow_redirects=True)
+            url = response.url
+            print(url)
+            base_url = f"http://45.88.188.104:6087/api/adlinks/bypass?url={url}"
+            response = requests.get(base_url)
+            decoded_string = response.json().get('bypassed')
+        except:
             decoded_string = "Invalid URL"
 
         embed = discord.Embed(
