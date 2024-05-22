@@ -29,7 +29,7 @@ class Tools(commands.Cog):
             response = requests.head(search, allow_redirects=True)
             url = response.url
             print(url)
-            base_url = f"https://ethos-testing.vercel.app/api/adlinks/bypass?url=url}"
+            base_url = f"https://ethos-testing.vercel.app/api/adlinks/bypass?url={url}"
             response = requests.get(base_url)
             decoded_string = response.json().get('bypassed')
         except:
