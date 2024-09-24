@@ -25,15 +25,17 @@ class Tools(commands.Cog):
     @commands.command(pass_context=True)
     async def adfly(self, ctx, search):
         
-        try:
-            response = requests.head(search, allow_redirects=True)
-            url = response.url
-            print(url)
-            base_url = f"https://api.bypass.vip/bypass?url={url}"
-            response = requests.get(base_url)
-            decoded_string = response.json().get('bypassed')
-        except:
-            decoded_string = "Invalid URL"
+        url = search
+        while True:
+            response = requests.get(url, allow_redirects=False)  # Set allow_redirects to False
+            if response.status_code in (301, 302):  # Check for redirect status codes
+                url = response.headers['Location']  # Get the new URL from the Location header
+            else:
+                break  # Exit the loop if no redirect
+        print(url)
+        base_url = f"https://api.bypass.vip/bypass?url={url}"
+        response = requests.get(base_url)
+        decoded_string = response.json().get('result')
 
         embed = discord.Embed(
             title=f"Adf.ly Decoder",
