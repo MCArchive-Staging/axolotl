@@ -25,8 +25,7 @@ class Tools(commands.Cog):
     @commands.command(pass_context=True)
     async def adfly(self, ctx, search):
         
-        if search.contains("adf.ly"):
-            response = requests.head(f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}", allow_redirects=True)
+        if "adf.ly" in search:            response = requests.head(f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}", allow_redirects=True)
         else:
             response = requests.head(search, allow_redirects=True)
         url = response.url
