@@ -26,20 +26,18 @@ class Tools(commands.Cog):
     # Adfly Command
     @commands.command(pass_context=True)
     async def adfly(self, ctx, search):
-        
+    
         async with httpx.AsyncClient(http2=True) as client:  # Use httpx with HTTP/2
             if "adf.ly" in search:
                 response = await client.head(f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}", allow_redirects=True)
             else:
                 response = await client.head(search, allow_redirects=True)
-        url = response.url
-        print(url)
-        base_url = f"https://api.bypass.vip/bypass?url={url}"
-        response = await client.get(base_url)  # Update to use httpx
-        decoded_string = response.json().get('result')
-
-
-        embed = discord.Embed(
+            url = response.url
+            print(url)
+            base_url = f"https://api.bypass.vip/bypass?url={url}"
+            response = await client.get(base_url)  # Update to use httpx
+            decoded_string = response.json().get('result')
+            embed = discord.Embed(
             title=f"Adf.ly Decoder",
             description=decoded_string,
             colour=0x98FB98,
