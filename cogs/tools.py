@@ -25,13 +25,11 @@ class Tools(commands.Cog):
     @commands.command(pass_context=True)
     async def adfly(self, ctx, search):
         
-        url = search
-        while True:
-            response = requests.get(url, allow_redirects=False)  # Set allow_redirects to False
-            if response.status_code in (301, 302):  # Check for redirect status codes
-                url = response.headers['Location']  # Get the new URL from the Location header
-            else:
-                break  # Exit the loop if no redirect
+        if search.contains("adf.ly"):
+            response = requests.head(f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}", allow_redirects=True)
+        else:
+            response = requests.head(search, allow_redirects=True)
+        url = response.url
         print(url)
         base_url = f"https://api.bypass.vip/bypass?url={url}"
         response = requests.get(base_url)
