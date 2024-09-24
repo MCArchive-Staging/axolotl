@@ -8,6 +8,7 @@ import requests
 import sys
 import urllib.parse
 import urllib.request
+import cloudscraper
 
 from base64 import b64decode
 from discord.ext import commands
@@ -25,9 +26,11 @@ class Tools(commands.Cog):
     @commands.command(pass_context=True)
     async def adfly(self, ctx, search):
         
-        if "adf.ly" in search:            response = requests.head(f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}", allow_redirects=True)
+        scraper = cloudscraper.create_scraper()  # Create a cloudscraper instance
+        if "adf.ly" in search:  # Changed from contains to 'in'
+            response = scraper.head(f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}", allow_redirects=True)
         else:
-            response = requests.head(search, allow_redirects=True)
+            response = scraper.head(search, allow_redirects=True)
         url = response.url
         print(url)
         base_url = f"https://api.bypass.vip/bypass?url={url}"
