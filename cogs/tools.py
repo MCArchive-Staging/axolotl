@@ -8,7 +8,8 @@ import requests
 import sys
 import urllib.parse
 import urllib.request
-import cloudscraper
+import cfscrape
+import httpx
 
 from base64 import b64decode
 from discord.ext import commands
@@ -26,16 +27,17 @@ class Tools(commands.Cog):
     @commands.command(pass_context=True)
     async def adfly(self, ctx, search):
         
-        scraper = cloudscraper.create_scraper()  # Create a cloudscraper instance
-        if "adf.ly" in search:  # Changed from contains to 'in'
-            response = scraper.head(f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}", allow_redirects=True)
-        else:
-            response = scraper.head(search, allow_redirects=True)
+        async with httpx.AsyncClient(http2=True) as client:  # Use httpx with HTTP/2
+            if "adf.ly" in search:
+                response = await client.head(f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}", allow_redirects=True)
+            else:
+                response = await client.head(search, allow_redirects=True)
         url = response.url
         print(url)
         base_url = f"https://api.bypass.vip/bypass?url={url}"
-        response = requests.get(base_url)
+        response = await client.get(base_url)  # Update to use httpx
         decoded_string = response.json().get('result')
+
 
         embed = discord.Embed(
             title=f"Adf.ly Decoder",
