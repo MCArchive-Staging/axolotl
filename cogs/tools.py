@@ -44,10 +44,9 @@ class Tools(commands.Cog):
             print(f"Redirected URL: {url}")
 
             # Strip out unwanted parameters
-            if "?link_origin=adfly" in url:
-                url = url.split("?link_origin=adfly")[0]  # Remove the link_origin parameter
-            if "&r=" in url:
-                url = url.split("&r=")[0]  # Remove the r parameter
+            query_params.pop('link_origin', None)  # Remove link_origin parameter
+            query_params.pop('r', None)  # Remove r parameter
+
 
 
             # Now, use Selenium to navigate to the bypass API
