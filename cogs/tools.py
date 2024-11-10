@@ -1,20 +1,14 @@
-import argparse
-import base64
-import discord
-import os
 import platform
-import re
+import json
 import requests
-import sys
-import urllib.parse
-import urllib.request
-import cfscrape
-import httpx
-
-from base64 import b64decode
+import discord
 from discord.ext import commands
-from urllib.request import urlopen, Request
-
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class Tools(commands.Cog):
 
@@ -26,76 +20,61 @@ class Tools(commands.Cog):
     # Adfly Command
     @commands.command(pass_context=True)
     async def adfly(self, ctx, search):
-    
-        async with httpx.AsyncClient(http2=True) as client:  # Use httpx with HTTP/2
-            if "adf.ly" in search:
-                response = await client.head(f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}", allow_redirects=True)
-            else:
-                response = await client.head(search, allow_redirects=True)
-            url = response.url
-            print(url)
-            base_url = f"https://api.bypass.vip/bypass?url={url}"
-            response = await client.get(base_url)  # Update to use httpx
-            decoded_string = response.json().get('result')
-            embed = discord.Embed(
-            title=f"Adf.ly Decoder",
-            description=decoded_string,
-            colour=0x98FB98,
-            timestamp=ctx.message.created_at,
-        )
-        try:
-            embed.set_thumbnail(url="https://i.ibb.co/qJ0ZxTD/646023.png")
-        except:
-            pass
-        embed.set_footer(
-            text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
-        )
-        embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
-        await ctx.send(content=None, embed=embed)
+        service = Service('chromedriver')
 
-    # Technic Command
-    @commands.command(pass_context=True)
-    async def technic(self, ctx, search):
-        url = "https://api.technicpack.net/search?q=" + search
-        params = {
-            "build": "build",
-        }
-        responce = requests.get(url, params=params)
-        json = responce.json()
-        packList = []
-        embed = discord.Embed(
-            title=f"Technic Slug Lookup",
-            description="\uFEFF",
-            colour=0x98FB98,
-            timestamp=ctx.message.created_at,
-        )
+        # Set up Chrome options
+        chrome_options = Options()
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+
+        # Create a new instance of the Chrome driver
+        driver = webdriver.Chrome(service=service, options=chrome_options)
+
         try:
-            for pack in json["modpacks"]:
-                url2 = "https://api.technicpack.net/modpack/" + pack["slug"]
-                params2 = {
-                    "build": "build",
-                }
-                responce = requests.get(url2, params=params)
-                json2 = responce.json()
-                finalURL = json2["url"]
-                if finalURL == None:
-                    finalURL = "SOLDER MODPACK"
-                embed.add_field(name=pack["name"], value=finalURL, inline=True)
-            if json["modpacks"] == []:
-                query = "No Results"
-        except:
-            pass
-        try:
-            embed.set_thumbnail(
-                url="https://i.ibb.co/qgXtt0Z/309359763-128793633250428-4428571622506032512-n.png"
-            )
-        except:
-            pass
-        embed.set_footer(
-            text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
-        )
-        embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
-        await ctx.send(content=None, embed=embed)
+            hard_migrator_url = f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}"
+
+            # Navigate to the hard migrator URL
+            driver.get(hard_migrator_url)
+
+            # Wait for the URL to change to any linkvertise URL
+            WebDriverWait(driver, 5).until(lambda d: d.current_url.startswith("https://linkvertise.com/"))
+
+            # Get the redirected URL
+            url = driver.current_url
+            print(f"Redirected URL: {url}")
+
+            # Now, make a request to the bypass API using requests
+            base_url = f"https://api.bypass.vip/bypass?url={url}"
+            response = requests.get(base_url)
+
+            # Check if the request was successful
+            if response.status_code == 200:
+                response_json = response.json()  # Parse the JSON response
+                
+                # Extract the bypassed URL
+                if response_json.get("status") == "success":
+                    bypassed_url = response_json.get("result")
+                    embed = discord.Embed(
+                        title="Adf.ly Decoder",
+                        description=bypassed_url,
+                        colour=0x98FB98,
+                        timestamp=ctx.message.created_at,
+                    )
+                    embed.set_footer(
+                        text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
+                    )
+                    embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
+                    await ctx.send(embed=embed)
+                else:
+                    await ctx.send(f"Failed to retrieve the bypassed URL. Error: {response_json.get('message')}")
+            else:
+                await ctx.send(f"Failed to call the bypass API. Status code: {response.status_code}")
+
+        except Exception as e:
+            await ctx.send(f"An error occurred: {e}")
+
+        finally:
+            driver.quit()  # Close the browser
     
     # ATLauncher Search Command
     @commands.group(pass_context=True)
