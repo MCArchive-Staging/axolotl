@@ -20,7 +20,7 @@ class Tools(commands.Cog):
     # Adfly Command
     @commands.command(pass_context=True)
     async def adfly(self, ctx, search):
-        service = Service('chromedriver')
+        service = Service('/snap/bin/chromium.chromedriver')
 
         # Set up Chrome options
         chrome_options = Options()
