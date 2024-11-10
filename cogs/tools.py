@@ -1,3 +1,4 @@
+cogs/tools.py
 import platform
 import json
 import requests
@@ -55,6 +56,8 @@ class Tools(commands.Cog):
             # Rebuild the URL without the unwanted parameters
             cleaned_query = urllib.parse.urlencode(query_params, doseq=True)
             url = urllib.parse.urlunparse(parsed_url._replace(query=cleaned_query))
+
+            print(f"Redirected URL: {url}")
 
             # Now, use Selenium to navigate to the bypass API
             bypass_url = f"https://api.bypass.vip/bypass?url={url}"
@@ -282,8 +285,6 @@ class Tools(commands.Cog):
         )
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
         await ctx.send(content=None, embed=embed)
-
-
 
 def setup(bot):
     bot.add_cog(Tools(bot))
