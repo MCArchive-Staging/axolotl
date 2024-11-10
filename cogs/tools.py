@@ -24,6 +24,7 @@ class Tools(commands.Cog):
 
         # Set up Chrome options
         chrome_options = Options()
+        chrome_options.add_argument("--no-headless")
         chrome_options.add_argument("--remote-debugging-pipe")
 
         # Create a new instance of the Chrome driver
@@ -41,6 +42,13 @@ class Tools(commands.Cog):
             # Get the redirected URL
             url = driver.current_url
             print(f"Redirected URL: {url}")
+
+            # Strip out unwanted parameters
+            if "?link_origin=adfly" in url:
+                url = url.split("?link_origin=adfly")[0]  # Remove the link_origin parameter
+            if "&r=" in url:
+                url = url.split("&r=")[0]  # Remove the r parameter
+
 
             # Now, use Selenium to navigate to the bypass API
             bypass_url = f"https://api.bypass.vip/bypass?url={url}"
