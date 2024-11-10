@@ -9,6 +9,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import urllib.parse  # Importing urllib.parse for URL manipulation
 
 class Tools(commands.Cog):
 
@@ -24,7 +25,7 @@ class Tools(commands.Cog):
 
         # Set up Chrome options
         chrome_options = Options()
-        chrome_options.add_argument("--no-headless")
+        chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--remote-debugging-pipe")
 
         # Create a new instance of the Chrome driver
@@ -44,10 +45,16 @@ class Tools(commands.Cog):
             print(f"Redirected URL: {url}")
 
             # Strip out unwanted parameters
+            parsed_url = urllib.parse.urlparse(url)
+            query_params = urllib.parse.parse_qs(parsed_url.query)
+
+            # Remove specific parameters
             query_params.pop('link_origin', None)  # Remove link_origin parameter
             query_params.pop('r', None)  # Remove r parameter
 
-
+            # Rebuild the URL without the unwanted parameters
+            cleaned_query = urllib.parse.urlencode(query_params, doseq=True)
+            url = urllib.parse.urlunparse(parsed_url._replace(query=cleaned_query))
 
             # Now, use Selenium to navigate to the bypass API
             bypass_url = f"https://api.bypass.vip/bypass?url={url}"
