@@ -1,4 +1,3 @@
-cogs/tools.py
 import platform
 import json
 import requests
@@ -52,6 +51,7 @@ class Tools(commands.Cog):
             # Remove specific parameters
             query_params.pop('link_origin', None)  # Remove link_origin parameter
             query_params.pop('r', None)  # Remove r parameter
+            query_params.pop('o', None)  # Remove r parameter
 
             # Rebuild the URL without the unwanted parameters
             cleaned_query = urllib.parse.urlencode(query_params, doseq=True)
