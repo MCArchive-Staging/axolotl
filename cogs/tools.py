@@ -24,7 +24,6 @@ class Tools(commands.Cog):
 
         # Set up Chrome options
         chrome_options = Options()
-        chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--remote-debugging-pipe")
 
         # Create a new instance of the Chrome driver
