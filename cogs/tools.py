@@ -63,6 +63,9 @@ class Tools(commands.Cog):
             bypass_url = f"https://api.bypass.vip/bypass?url={url}"
             driver.get(bypass_url)
 
+            if url.endswith("dynamic"):
+                url = url[:-len("dynamic")]  # Remove 'dynamic' from the end
+
             # Wait for the response to load and extract the bypassed URL
             WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
             response_json = driver.find_element(By.TAG_NAME, "body").text  # Get the response text
