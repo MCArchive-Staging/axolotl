@@ -126,29 +126,32 @@ class Tools(commands.Cog):
                     await ctx.send(embed=embed)
                 else:
                     try:
-                        bypassed_url = wayback_tools.skip(search)
-                        bypassed_url = urllib.parse.unquote(bypassed_url).replace("{", "").replace("}", "").replace("'", "")
-                        
-                        # Store the original and bypassed URL in a text file
-                        with open("bypassed_urls.txt", "a") as file:  # Open file in append mode
-                            file.write(f"{search} = {bypassed_url}\n")  # Write original and bypassed URL
-                        
-                        embed = discord.Embed(
-                            title="Adf.ly Decoder",
-                            description=bypassed_url,
-                            colour=0x98FB98,
-                            timestamp=ctx.message.created_at,
-                        )
-                        embed.set_footer(
-                            text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
-                        )
-                        embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
-                        await ctx.send(embed=embed)
+                        bypassed_url_set = wayback_tools.skip(search)
+                        bypassed_urls = list(bypassed_url_set)  # Convert to a list if you need to iterate or access by index
+                        if bypassed_urls:
+                            # Assuming you want to use the first URL from the list
+                            bypassed_url = urllib.parse.unquote(bypassed_urls[0]).replace("{", "").replace("}", "").replace("'", "")
+
+                            # Store the original and bypassed URL in a text file
+                            with open("bypassed_urls.txt", "a") as file:  # Open file in append mode
+                                file.write(f"{search} = {bypassed_url}\n")  # Write original and bypassed URL
+
+                            embed = discord.Embed(
+                                title="Adf.ly Decoder",
+                                description=bypassed_url,
+                                colour=0x98FB98,
+                                timestamp=ctx.message.created_at,
+                            )
+                            embed.set_footer(
+                                text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
+                            )
+                            embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
+                            await ctx.send(embed=embed)
+                        else:
+                            await ctx.send("No bypassed URLs found.")
                     except Exception as e:
                         await ctx.send(f"An error occurred: {e}")
-            except Exception as e:
-                await ctx.send(f"An error occurred: {e}")
-    
+
             finally:
                 driver.quit()  # Close the browser
         
