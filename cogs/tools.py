@@ -39,7 +39,17 @@ class Tools(commands.Cog):
         # Check if the URL has already been processed
         if search in bypassed_urls:
             bypassed_url = bypassed_urls[search]
-            await ctx.send(f"Already processed: {bypassed_url}")
+            embed = discord.Embed(
+                title="Adf.ly Decoder",
+                description=bypassed_url,
+                colour=0x98FB98,
+                timestamp=ctx.message.created_at,
+            )
+            embed.set_footer(
+                text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
+            )
+            embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
+            await ctx.send(embed=embed)           
             return  # Exit the command if already processed
 
         try:
