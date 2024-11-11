@@ -88,27 +88,19 @@ class Tools(commands.Cog):
                 await ctx.send(embed=embed)
             else:
                 try:
-                    wayback_urls = wayback_tools.skip(search)
-                    if wayback_urls:
-                        for wayback_url in wayback_urls:
-                            body = await get_wayback_body(wayback_url)
-                            if body:
-                                ysmm = search_ysmm(body)
-                                if ysmm:
-                                    decoded_url = crack_ysmm(ysmm)
-                                    if decoded_url:
-                                        bypassed_url = response_data.get("result")
-                                        embed = discord.Embed(
-                                            title="Adf.ly Decoder",
-                                            description=bypassed_url,
-                                            colour=0x98FB98,
-                                            timestamp=ctx.message.created_at,
-                                        )
-                                        embed.set_footer(
-                                            text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
-                                        )
-                                        embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
-                                        await ctx.send(embed=embed)
+                    wayback_url = wayback_tools.skip(search)
+                    bypassed_url = response_data.get("result")
+                    embed = discord.Embed(
+                        title="Adf.ly Decoder",
+                        description=bypassed_url,
+                        colour=0x98FB98,
+                        timestamp=ctx.message.created_at,
+                    )
+                    embed.set_footer(
+                        text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
+                    )
+                    embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
+                    await ctx.send(embed=embed)
                 except Exception as e:
                     await ctx.send(f"An error occurred: {e}")
         except Exception as e:
