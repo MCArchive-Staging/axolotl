@@ -161,6 +161,20 @@ class Tools(commands.Cog):
         if ctx.invoked_subcommand is None:
             await ctx.send('**Subcommands:** file, md5, sha1, sha512')
 
+    @adfly_urls.command(name='adfly_urls')
+    async def adfly_urls(ctx):
+        try:
+            with open('bypassed_urls.txt', 'r') as file:
+                urls = file.readlines()
+
+            # Send each URL to the Discord channel
+            for url in urls:
+                await ctx.send(url.strip())
+
+            await ctx.send("All URLs have been sent.")
+        except Exception as e:
+            await ctx.send(f"An error occurred: {e}")
+
     # ATLauncher Search Command
     @atlaunch.command(pass_context=True)
     async def file(self, ctx, jarfile):
