@@ -2,6 +2,7 @@ import platform
 import json
 import requests
 import discord
+from wayback_tools import *
 from discord.ext import commands
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -86,7 +87,30 @@ class Tools(commands.Cog):
                 embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
                 await ctx.send(embed=embed)
             else:
-                await ctx.send(f"Failed to retrieve the bypassed URL. Error: {response_data.get('message')}")
+                try:
+                    wayback_urls = await self.get_wayback_snapshots(url)
+                    if wayback_urls:
+                        for wayback_url in wayback_urls:
+                            body = await self.get_wayback_body(wayback_url)
+                            if body:
+                                ysmm = self.search_ysmm(body)
+                                if ysmm:
+                                    decoded_url = self.crack_ysmm(ysmm)
+                                    if decoded_url:
+                                        bypassed_url = response_data.get("result")
+                                        embed = discord.Embed(
+                                            title="Adf.ly Decoder",
+                                            description=bypassed_url,
+                                            colour=0x98FB98,
+                                            timestamp=ctx.message.created_at,
+                                        )
+                                        embed.set_footer(
+                                            text=f"Ran by: {ctx.message.author} • Yours truly, {self.bot.user.name}"
+                                        )
+                                        embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
+                                        await ctx.send(embed=embed)
+                except:
+                    await ctx.send("Failed to retrieve the bypassed URL.")
         except Exception as e:
             await ctx.send(f"An error occurred: {e}")
 
