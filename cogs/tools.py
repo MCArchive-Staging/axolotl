@@ -88,8 +88,7 @@ class Tools(commands.Cog):
                 await ctx.send(embed=embed)
             else:
                 try:
-                    wayback_url = wayback_tools.skip(search)
-                    bypassed_url = response_data.get("result")
+                    bypassed_url = wayback_tools.skip(search)
                     embed = discord.Embed(
                         title="Adf.ly Decoder",
                         description=bypassed_url,
