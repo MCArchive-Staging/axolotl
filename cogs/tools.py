@@ -161,7 +161,7 @@ class Tools(commands.Cog):
         if ctx.invoked_subcommand is None:
             await ctx.send('**Subcommands:** file, md5, sha1, sha512')
 
-    @adfly_urls.command(name='adfly_urls')
+    @commands.command(name='adfly_urls')
     async def adfly_urls(ctx):
         await ctx.send(file=discord.File('bypassed_urls.txt'))
 
