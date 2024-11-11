@@ -89,7 +89,8 @@ class Tools(commands.Cog):
             else:
                 try:
                     bypassed_url = wayback_tools.skip(search)
-                    embed = discord.Embed(
+                    bypassed_url = urllib.parse.unquote(bypassed_url).replace("{", "").replace("}", "").replace("'", "")
+                    embed = discord.Embed(\
                         title="Adf.ly Decoder",
                         description=bypassed_url,
                         colour=0x98FB98,
