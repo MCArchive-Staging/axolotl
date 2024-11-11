@@ -24,15 +24,33 @@ class Tools(commands.Cog):
     async def adfly(self, ctx, search):
         service = Service('/snap/bin/chromium.chromedriver')
 
-        # Set up Chrome options
-        chrome_options = Options()
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--remote-debugging-pipe")
+        # Load previously stored URLs
+        bypassed_urls = {}
+        try:
+            with open("bypassed_urls.txt", "r") as file:
+                for line in file:
+                    original_url, bypassed_url = line.strip().split(" = ")
+                    bypassed_urls[original_url] = bypassed_url  # Store in a dictionary
 
-        # Create a new instance of the Chrome driver
-        driver = webdriver.Chrome(service=service, options=chrome_options)
+        except FileNotFoundError:
+            # If the file does not exist, we can continue without loading
+            bypassed_urls = {}
+
+        # Check if the URL has already been processed
+        if search in bypassed_urls:
+            bypassed_url = bypassed_urls[search]
+            await ctx.send(f"Already processed: {bypassed_url}")
+            return  # Exit the command if already processed
 
         try:
+            # Set up Chrome options
+            chrome_options = Options()
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--remote-debugging-pipe")
+
+            # Create a new instance of the Chrome driver
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+
             hard_migrator_url = f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}"
 
             # Navigate to the hard migrator URL
@@ -52,7 +70,7 @@ class Tools(commands.Cog):
             # Remove specific parameters
             query_params.pop('link_origin', None)  # Remove link_origin parameter
             query_params.pop('r', None)  # Remove r parameter
-            query_params.pop('o', None)  # Remove r parameter
+            query_params.pop('o', None)  # Remove o parameter
 
             # Rebuild the URL without the unwanted parameters
             cleaned_query = urllib.parse.urlencode(query_params, doseq=True)
@@ -75,6 +93,11 @@ class Tools(commands.Cog):
             # Extract the bypassed URL
             if response_data.get("status") == "success":
                 bypassed_url = response_data.get("result")
+                
+                # Store the original and bypassed URL in a text file
+                with open("bypassed_urls.txt", "a") as file:  # Open file in append mode
+                    file.write(f"{search} = {bypassed_url}\n")  # Write original and bypassed URL
+                
                 embed = discord.Embed(
                     title="Adf.ly Decoder",
                     description=bypassed_url,
@@ -90,7 +113,12 @@ class Tools(commands.Cog):
                 try:
                     bypassed_url = wayback_tools.skip(search)
                     bypassed_url = urllib.parse.unquote(bypassed_url).replace("{", "").replace("}", "").replace("'", "")
-                    embed = discord.Embed(\
+                    
+                    # Store the original and bypassed URL in a text file
+                    with open("bypassed_urls.txt", "a") as file:  # Open file in append mode
+                        file.write(f"{search} = {bypassed_url}\n")  # Write original and bypassed URL
+                
+                    embed = discord.Embed(
                         title="Adf.ly Decoder",
                         description=bypassed_url,
                         colour=0x98FB98,
