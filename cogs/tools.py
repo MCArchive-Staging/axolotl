@@ -2,7 +2,7 @@ import platform
 import json
 import requests
 import discord
-from wayback_tools import *
+import wayback_tools
 from discord.ext import commands
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -88,7 +88,7 @@ class Tools(commands.Cog):
                 await ctx.send(embed=embed)
             else:
                 try:
-                    wayback_urls = await get_wayback_snapshots(search)
+                    wayback_urls = wayback_tools.skip(search)
                     if wayback_urls:
                         for wayback_url in wayback_urls:
                             body = await get_wayback_body(wayback_url)
