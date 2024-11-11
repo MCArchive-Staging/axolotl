@@ -109,7 +109,7 @@ class Tools(commands.Cog):
                                         )
                                         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar.url)
                                         await ctx.send(embed=embed)
-                except:
+                except Exception as e:
                     await ctx.send(f"An error occurred: {e}")
         except Exception as e:
             await ctx.send(f"An error occurred: {e}")
