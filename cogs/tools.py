@@ -29,8 +29,13 @@ class Tools(commands.Cog):
         try:
             with open("bypassed_urls.txt", "r") as file:
                 for line in file:
-                    original_url, bypassed_url = line.strip().split(" = ")
-                    bypassed_urls[original_url] = bypassed_url  # Store in a dictionary
+                    line = line.strip()  # Clean up the line
+                    if " = " in line:  # Ensure the line contains the expected delimiter
+                        original_url, bypassed_url = line.split(" = ")
+                        bypassed_urls[original_url] = bypassed_url  # Store in a dictionary
+                    else:
+                        # Handle the case where the line does not contain " = "
+                        print(f"Skipping invalid line: {line}")  # Log or handle the invalid line
 
         except FileNotFoundError:
             # If the file does not exist, we can continue without loading
@@ -57,49 +62,49 @@ class Tools(commands.Cog):
                 chrome_options = Options()
                 chrome_options.add_argument("--no-sandbox")
                 chrome_options.add_argument("--remote-debugging-pipe")
-    
+
                 # Create a new instance of the Chrome driver
                 driver = webdriver.Chrome(service=service, options=chrome_options)
-    
+
                 hard_migrator_url = f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}"
-    
+
                 # Navigate to the hard migrator URL
                 driver.get(hard_migrator_url)
-    
+
                 # Wait for the URL to change to any linkvertise URL
                 WebDriverWait(driver, 5).until(lambda d: d.current_url.startswith("https://linkvertise.com/"))
-    
+
                 # Get the redirected URL
                 url = driver.current_url
                 print(f"Redirected URL: {url}")
-    
+
                 # Strip out unwanted parameters
                 parsed_url = urllib.parse.urlparse(url)
                 query_params = urllib.parse.parse_qs(parsed_url.query)
-    
+
                 # Remove specific parameters
                 query_params.pop('link_origin', None)  # Remove link_origin parameter
                 query_params.pop('r', None)  # Remove r parameter
                 query_params.pop('o', None)  # Remove o parameter
-    
+
                 # Rebuild the URL without the unwanted parameters
                 cleaned_query = urllib.parse.urlencode(query_params, doseq=True)
                 url = urllib.parse.urlunparse(parsed_url._replace(query=cleaned_query))
-    
+
                 print(f"Redirected URL: {url}")
-    
+
                 # Now, use Selenium to navigate to the bypass API
                 bypass_url = f"https://api.bypass.vip/bypass?url={url}"
                 driver.get(bypass_url)
-    
+
                 if url.endswith("dynamic"):
                     url = url[:-len("dynamic")]  # Remove 'dynamic' from the end
-    
+
                 # Wait for the response to load and extract the bypassed URL
                 WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
                 response_json = driver.find_element(By.TAG_NAME, "body").text  # Get the response text
                 response_data = json.loads(response_json)  # Parse the JSON response
-                
+
                 # Extract the bypassed URL
                 if response_data.get("status") == "success":
                     bypassed_url = response_data.get("result")
@@ -127,7 +132,7 @@ class Tools(commands.Cog):
                         # Store the original and bypassed URL in a text file
                         with open("bypassed_urls.txt", "a") as file:  # Open file in append mode
                             file.write(f"{search} = {bypassed_url}\n")  # Write original and bypassed URL
-                    
+                        
                         embed = discord.Embed(
                             title="Adf.ly Decoder",
                             description=bypassed_url,
