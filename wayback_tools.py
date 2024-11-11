@@ -62,12 +62,15 @@ def get_wayback_snapshots(url: str) -> List[str]:
         return urls  # Return an empty list if JSON decoding fails
 
     for year in sorted(map(int, years)):
-        response = requests.get(f"http://web.archive.org/__wb/calendarcaptures/2?url={url}&date={year}&groupby=day")
+        response = requests.get(f"http://web.archive.org/__wb/calendarcaptures/2?url={url}&date={year}&groupby=day", headers=headers)
         days = response.json()['items']
 
         for day_arr in days:
             day = f"{day_arr[0]:04d}"
-            response = requests.get(f"http://web.archive.org/__wb/calendarcaptures/2?url={url}&date={year}{day}")
+            headers2 = {
+                "Referer": f"http://web.archive.org/web/{year}{day}000000*/{url}"
+            }
+            response = requests.get(f"http://web.archive.org/__wb/calendarcaptures/2?url={url}&date={year}{day}", headers=headers2)
             times = response.json()['items']
 
             for time_arr in times:
