@@ -88,7 +88,7 @@ class Tools(commands.Cog):
                 await ctx.send(embed=embed)
             else:
                 try:
-                    wayback_urls = await get_wayback_snapshots(url)
+                    wayback_urls = await get_wayback_snapshots(search)
                     if wayback_urls:
                         for wayback_url in wayback_urls:
                             body = await get_wayback_body(wayback_url)
