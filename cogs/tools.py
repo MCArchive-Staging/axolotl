@@ -163,17 +163,7 @@ class Tools(commands.Cog):
 
     @adfly_urls.command(name='adfly_urls')
     async def adfly_urls(ctx):
-        try:
-            with open('bypassed_urls.txt', 'r') as file:
-                urls = file.readlines()
-
-            # Send each URL to the Discord channel
-            for url in urls:
-                await ctx.send(url.strip())
-
-            await ctx.send("All URLs have been sent.")
-        except Exception as e:
-            await ctx.send(f"An error occurred: {e}")
+        await ctx.send(file=discord.File('bypassed_urls.txt'))
 
     # ATLauncher Search Command
     @atlaunch.command(pass_context=True)
