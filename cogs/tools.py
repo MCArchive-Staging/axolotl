@@ -162,7 +162,7 @@ class Tools(commands.Cog):
             await ctx.send('**Subcommands:** file, md5, sha1, sha512')
 
     @commands.command(name='adfly_urls')
-    async def adfly_urls(ctx):
+    async def adfly_urls(self, ctx):
         await ctx.send(file=discord.File('bypassed_urls.txt'))
 
     # ATLauncher Search Command
