@@ -88,14 +88,14 @@ class Tools(commands.Cog):
                 await ctx.send(embed=embed)
             else:
                 try:
-                    wayback_urls = await self.get_wayback_snapshots(url)
+                    wayback_urls = await get_wayback_snapshots(url)
                     if wayback_urls:
                         for wayback_url in wayback_urls:
-                            body = await self.get_wayback_body(wayback_url)
+                            body = await get_wayback_body(wayback_url)
                             if body:
-                                ysmm = self.search_ysmm(body)
+                                ysmm = search_ysmm(body)
                                 if ysmm:
-                                    decoded_url = self.crack_ysmm(ysmm)
+                                    decoded_url = crack_ysmm(ysmm)
                                     if decoded_url:
                                         bypassed_url = response_data.get("result")
                                         embed = discord.Embed(
