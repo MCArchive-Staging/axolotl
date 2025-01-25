@@ -66,7 +66,7 @@ class Tools(commands.Cog):
                 # Create a new instance of the Chrome driver
                 driver = webdriver.Chrome(service=service, options=chrome_options)
 
-                hard_migrator_url = f"https://publisher.linkvertise.com/adfly-hard-migrator/url?url={search}"
+                hard_migrator_url = f"https://dlr-api.woozym.workers.dev/api/deloreanv2/goatbypassersontop/free?url={search}"
 
                 # Navigate to the hard migrator URL
                 driver.get(hard_migrator_url)
