@@ -94,7 +94,7 @@ class Tools(commands.Cog):
                 print(f"Redirected URL: {url}")
 
                 # Now, use Selenium to navigate to the bypass API
-                bypass_url = f"https://api.bypass.vip/bypass?url={url}"
+                bypass_url = f"https://dlr-api.woozym.workers.dev/api/deloreanv2/goatbypassersontop/free?url={url}"
                 driver.get(bypass_url)
 
                 if url.endswith("dynamic"):
