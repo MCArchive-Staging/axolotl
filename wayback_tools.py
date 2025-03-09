@@ -11,7 +11,7 @@ def skip(adfly: str) -> Set[str]:
     """
     sns = get_wayback_snapshots(adfly)
     if not sns:
-        raise Exception("Unavailable in WaybackMachine!")
+        raise Exception("Unavailable in WaybackMachine or Linkvertise!")
     
     ret = set()
     for sn in sns:

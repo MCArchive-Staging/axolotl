@@ -101,7 +101,7 @@ class Tools(commands.Cog):
                     url = url[:-len("dynamic")]  # Remove 'dynamic' from the end
 
                 # Wait for the response to load and extract the bypassed URL
-                WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+                WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
                 response_json = driver.find_element(By.TAG_NAME, "body").text  # Get the response text
                 response_data = json.loads(response_json)  # Parse the JSON response
 
@@ -133,7 +133,7 @@ class Tools(commands.Cog):
                             bypassed_url = urllib.parse.unquote(bypassed_urls[0]).replace("{", "").replace("}", "").replace("'", "")
 
                             # Store the original and bypassed URL in a text file
-                            with open("bypassed_urls.txt", "a") as file:  # Open file in append mode
+                          with open("bypassed_urls.txt", "a") as file:  # Open file in append mode
                                 file.write(f"{search} = {bypassed_url}\n")  # Write original and bypassed URL
 
                             embed = discord.Embed(
